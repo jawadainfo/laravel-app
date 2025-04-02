@@ -5,6 +5,7 @@ return [
     'layouts' => [
         'default',
         'curve',
+        'cover',
     ],
     'path' => resource_path('views/layouts'),
 ];

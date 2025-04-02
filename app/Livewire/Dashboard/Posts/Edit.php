@@ -5,6 +5,7 @@ namespace App\Livewire\Dashboard\Posts;
 use App\Models\Post;
 use App\Traits\WithEditModel;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Arr;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\Attributes\Locked;
@@ -74,10 +75,19 @@ class Edit extends Component
             "template" => ["nullable","string",Rule::in(config('layouts.layouts'))],
             "seo_title" => ["nullable","string","max:255"],
             "seo_description" => ["nullable","string","max:255"],
-            'thumbnail' => ['nullable','image','max:5120'],
+            'thumbnail' => ['nullable','image','max:10240'],
             'files' => ['nullable','array'],
             'files.*' => ['nullable','file'],
         ];
+    }
+    public function template_options(){
+        $layouts = config('layouts.layouts');
+        return Arr::map($layouts, function($layout){
+            return [
+                'label' => __("layouts.$layout"),
+                'value' => $layout,
+            ];
+        });
     }
     public function beforeSave() {
         if(empty($this->slug)){
@@ -95,6 +105,7 @@ class Edit extends Component
         return view("livewire.dashboard.posts.edit", [
             'previewsThumbnail' => $this->getPreviews('thumbnail'),
             'previewsFiles' => $this->getPreviews('files'),
+            'template_options' => $this->template_options(),
         ])->layout('layouts.dashboard', [
             'title' => $this->title,
         ]);

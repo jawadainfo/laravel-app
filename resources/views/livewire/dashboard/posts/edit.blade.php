@@ -51,7 +51,7 @@
                     <div class="card-body">
                         <div class="grid grid-cols-1 gap-4">
                             <div class="col">
-                                <fgx:file id="thumbnail" wire:model.live="thumbnail" :label="__('Featured image')"
+                                <fgx:file id="thumbnail" wire:model.live="thumbnail" :label="__('Featured image')" accept="image/*"
                                     :previews="$previewsThumbnail" />
                             </div>
                         </div>
@@ -68,6 +68,17 @@
                             <div class="col">
                                 <fgx:textarea id="seo_description" wire:model.live="seo_description"
                                     :label="__('Seo description')" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mt-6">
+                    <fgx:card-header :title="__('Design')" />
+                    <div class="card-body">
+                        <div class="grid grid-cols-1 gap-4">
+                            <div class="col">
+                                <fgx:select id="template" wire:model.live="template" :label="__('Template')"
+                                    :options="$template_options" />
                             </div>
                         </div>
                     </div>
